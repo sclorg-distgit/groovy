@@ -8,7 +8,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.8.9
-Release:        7.15%{?dist}
+Release:        7.16%{?dist}
 Summary:        Dynamic language for the Java Platform
 
 # Some of the files are licensed under BSD and CPL terms, but the CPL has been superceded
@@ -39,9 +39,9 @@ BuildRequires:  %{?scl_prefix_java_common}tomcat-servlet-3.0-api
 BuildRequires:  %{?scl_prefix_java_common}javapackages-tools
 BuildRequires:  %{?scl_prefix_java_common}apache-commons-cli
 BuildRequires:  %{?scl_prefix_java_common}ecj
-BuildRequires:  maven30-xstream
-BuildRequires:  maven30-jline
-BuildRequires:  maven30-apache-ivy
+BuildRequires:  %{?scl_prefix}xstream
+BuildRequires:  %{?scl_prefix}jline
+BuildRequires:  %{?scl_prefix}apache-ivy
 BuildRequires:  unzip
 
 # The are all runtime dependencies of the script
@@ -57,9 +57,9 @@ Requires:       %{?scl_prefix_java_common}jansi
 Requires:       %{?scl_prefix_java_common}tomcat-jsp-2.2-api
 Requires:       %{?scl_prefix_java_common}junit
 Requires:       %{?scl_prefix_java_common}tomcat-servlet-3.0-api
-Requires:       maven30-xstream
-Requires:       maven30-jline
-Requires:       maven30-apache-ivy
+Requires:       %{?scl_prefix}xstream
+Requires:       %{?scl_prefix}jline
+Requires:       %{?scl_prefix}apache-ivy
 
 
 %description
@@ -79,7 +79,7 @@ JavaDoc documentation for %{pkg_name}
 
 %prep
 %setup -q -n %{pkg_name}-%{version}
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 cp %{SOURCE4} %{SOURCE5} %{SOURCE6} .
 # Remove bundled JARs and classes
@@ -89,7 +89,7 @@ find \( -name *.jar -o -name *.class \) -delete
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 mkdir -p target/lib/{compile,tools}
 
@@ -98,7 +98,7 @@ build-jar-repository target/lib/compile tomcat-servlet-api tomcat-jsp-api \
         objectweb-asm/asm-tree objectweb-asm/asm \
         objectweb-asm/asm-util objectweb-asm/asm-analysis \
         antlr ant/ant-antlr antlr \
-        bsf jline xstream ant junit ivy commons-cli \
+        bsf jline xstream ant/ant junit ivy commons-cli \
         jansi
 
 # Use ECJ instead of OpenJDK to compile MethodHandle.  This is a
@@ -116,7 +116,7 @@ ant -DskipTests=on -DskipExamples=on -DskipFetch=on -DskipEmbeddable=on \
 
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 
 # Code
@@ -161,6 +161,9 @@ install -p -m644 pom.xml $RPM_BUILD_ROOT/%{_mavenpomdir}/JPP-%{pkg_name}.pom
 %doc LICENSE.txt LICENSE-2.0.txt NOTICE.txt cpl-v10.txt epl-v10.txt
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 1.8.9-7.16
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 1.8.9-7.15
 - maven33 rebuild
 
