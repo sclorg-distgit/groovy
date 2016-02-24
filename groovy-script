@@ -17,7 +17,7 @@ fi
 # Configuration
 SCRIPT_PATH=$0
 PROGNAME=$(basename $SCRIPT_PATH)
-GROOVY_CONF=/opt/rh/maven30/root/etc/groovy-starter.conf
+GROOVY_CONF=/opt/rh/rh-maven33/root/etc/groovy-starter.conf
 TOOLS_JAR=$(build-classpath ../../jvm/java/lib/tools)
 STARTER_MAIN_CLASS=org.codehaus.groovy.tools.GroovyStarter
 MAIN_CLASS=$STARTER_MAIN_CLASS
@@ -32,8 +32,8 @@ MAIN_CLASS=$STARTER_MAIN_CLASS
 [ $PROGNAME = groovysh ]	&& [ "$OLDSHELL" ] && CLASS=groovy.ui.InteractiveShell
 
 # Load system-wide configuration
-if [ -f /opt/rh/maven30/root/etc/groovy.conf ]; then
-  . /opt/rh/maven30/root/etc/groovy.conf
+if [ -f /opt/rh/rh-maven33/root/etc/groovy.conf ]; then
+  . /opt/rh/rh-maven33/root/etc/groovy.conf
 fi
 
 # Load user configuration
