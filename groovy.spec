@@ -8,7 +8,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.8.9
-Release:        7.17%{?dist}
+Release:        7.18%{?dist}
 Summary:        Dynamic language for the Java Platform
 
 # Some of the files are licensed under BSD and CPL terms, but the CPL has been superceded
@@ -161,6 +161,9 @@ install -p -m644 pom.xml $RPM_BUILD_ROOT/%{_mavenpomdir}/JPP-%{pkg_name}.pom
 %doc LICENSE.txt LICENSE-2.0.txt NOTICE.txt cpl-v10.txt epl-v10.txt
 
 %changelog
+* Mon Feb 08 2016 Michal Srb <msrb@redhat.com> - 1.8.9-7.18
+- Fix BR on maven-local & co.
+
 * Fri Jan 29 2016 Michal Srb <msrb@redhat.com> - 1.8.9-7.17
 - Adapt start script to rh-maven33 collection
 
