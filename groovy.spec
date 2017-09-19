@@ -8,7 +8,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.8.9
-Release:        7.18%{?dist}
+Release:        7.19%{?dist}
 Summary:        Dynamic language for the Java Platform
 
 # Some of the files are licensed under BSD and CPL terms, but the CPL has been superceded
@@ -25,6 +25,9 @@ Source5:        epl-v10.txt
 Source6:        http://www.apache.org/licenses/LICENSE-2.0.txt
 # http://jira.codehaus.org/browse/GROOVY-6085
 Patch0:         groovy-inner-interface-annotations.patch
+# https://github.com/apache/groovy/commit/09e9778e8a33052d8c27105aee5310649637233d
+# https://github.com/apache/groovy/commit/716d3e67e744c7edeed7cbc3f874090d39355764
+Patch1:         groovy-CVE-2015-3253-and-CVE-2016-6814.patch
 BuildArch:      noarch
 
 BuildRequires:  %{?scl_prefix_java_common}ant
@@ -86,6 +89,7 @@ cp %{SOURCE4} %{SOURCE5} %{SOURCE6} .
 find \( -name *.jar -o -name *.class \) -delete
 
 %patch0 -p1
+%patch1 -p1
 %{?scl:EOF}
 
 %build
@@ -161,6 +165,10 @@ install -p -m644 pom.xml $RPM_BUILD_ROOT/%{_mavenpomdir}/JPP-%{pkg_name}.pom
 %doc LICENSE.txt LICENSE-2.0.txt NOTICE.txt cpl-v10.txt epl-v10.txt
 
 %changelog
+* Wed Aug 23 2017 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.8.9-7.19
+- Fix remote code execution vulnerability
+- Resolves: CVE-2015-3253, CVE-2016-6814
+
 * Mon Feb 08 2016 Michal Srb <msrb@redhat.com> - 1.8.9-7.18
 - Fix BR on maven-local & co.
 
